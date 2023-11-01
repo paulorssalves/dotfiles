@@ -13,6 +13,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-fugitive'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'jreybert/vimagit'
+	Plug 'mattn/emmet-vim'
+	Plug 'jalvesaq/Nvim-R'
+	Plug 'jpalardy/vim-slime', { 'for': 'python' }
+	Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 call plug#end()
 
 set encoding=utf-8
@@ -21,6 +25,8 @@ set encoding=utf-8
 syntax on
 
 " bindings
+let mapleader = ","
+let maplocalleader = " "
 map! <C-BS> <C-w>
 map <F8> :NERDTreeToggle<CR>
 map <F12> :Magit<CR>
@@ -70,3 +76,10 @@ set clipboard=unnamedplus
 let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
+
+""" vim-ipython-cell
+
+let g:slime_target = "vimterminal"
+nnoremap <Leader>s :SlimeSend1 ipython --matplotlib<CR>
+nnoremap <Leader>i :vertical :terminal<CR>ipython<CR>
+let g:slime_python_ipython = 1
