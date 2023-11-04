@@ -4,6 +4,7 @@ feh --no-fehbg --bg-fill "$HOME/img/papes/1920x1080.jpg" &
 setxkbmap -layout br,ru,gr -variant abnt2,phonetic_dvorak -option grp:ctrls_toggle &
 
 compton &
+xrdb $HOME/.Xresources &
 dwmstatus 2>&1 >/dev/null &
 
 while true; do
