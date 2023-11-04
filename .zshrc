@@ -4,21 +4,31 @@ HISTFILE=~/.cache/zsh/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 unsetopt beep
-bindkey -v
 
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/paulo/.zshrc'
-zstyle ':completion:*' menu select
-_comp_options+=(globdots)
+#zstyle :compinstall filename '/home/paulo/.zshrc'
 
 autoload -Uz compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
 compinit
+_comp_options+=(globdots)
+
 # End of lines added by compinstall
 #
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
      [[ $1 = 'block' ]]; then
@@ -39,11 +49,9 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
+# edit line in vim
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # setting up VCS
 autoload -Uz vcs_info
